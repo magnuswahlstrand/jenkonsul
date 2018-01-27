@@ -1,4 +1,5 @@
-
+# Jenkonsul
+A guide how to set up a simple Jenkins/Consul system using dockers and jenkins job results to it.
 
 ## Setup environment
 
@@ -29,4 +30,4 @@ docker run --name konsul -p 8500:8500 -p 8600:8600 consul
 2. Add Consul build steps
 ![alt text](jenkins_build_step.png "Example configuration" )
 3. Run the job
-4. Check the results http://localhost:8500/ui/#/dc1/kv# jenkonsul
+4. Check the results http://localhost:8500/ui/#/dc1/kv

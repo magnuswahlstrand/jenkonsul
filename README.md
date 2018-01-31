@@ -15,7 +15,7 @@ docker run --name konsul -p 8500:8500 -p 8600:8600 consul
 ```
 
 ### Setup jenkins
-1. Go to http://localhost:8080, enter password found in the terminal from step 
+1. Go to http://localhost:8080, enter password found in the terminal from step
 3. Follow the wizard to setup your Jenkins. Default values is fine.
 
 ### Setup `Consul KV builder` plugin
@@ -34,7 +34,7 @@ docker run --name konsul -p 8500:8500 -p 8600:8600 consul
 
 
 # Using Jenkins REST directly.
-Sometimes, using the native REST api can give you the same results. 
+Sometimes, using the native REST api can give you the same results.
 
 Example: http://localhost:8080/api/json?tree=jobs[name]&pretty=true
 
@@ -50,3 +50,6 @@ Example: http://localhost:8080/api/json?tree=jobs[name]&pretty=true
 
 [Jenkins guide](http://localhost:8080/api/)
 [How to use the API](https://www.cloudbees.com/blog/taming-jenkins-json-api-depth-and-tree)
+
+
+[Great example of Jenkins REST endpoints](http://yandao.github.io/quick%20tips/2016/07/13/some-useful-jenkins-rest-api-endpoints)

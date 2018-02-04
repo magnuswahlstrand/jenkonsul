@@ -9,29 +9,14 @@ import jenkins_utils
 app = Flask(__name__)
 VERSION = 0.2
 
+@app.route('/jobs')
+def jobs():
+    return jsonify(jenkins_utils.all_jobs(url))
 
-def restructure_response(job):
 
-
-    # Default values
-    job['claim'] = None
-    job['trigger'] = None
-
-    # Update claim and trigger info
-    if 'actions' in job:
-        for action in job['actions']:
-            if 'claimed' in action and action['claimed'] == True:
-                print(action)
-                job['claim'] = action['claimedBy'] + ": " + action['reason']
-
-            if 'causes' in action:
-                job['trigger'] = action['causes'][0]['shortDescription']
-
-        # Remove from dict
-        job.pop('actions')
-
-    return job
-
+@app.route('/job/<job_name>')
+def job(job_name):
+    return jsonify(jenkins_utils.job_builds(url, job_namejob_name))
 
 @app.route('/tracks')
 def tracks():

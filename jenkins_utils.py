@@ -11,9 +11,20 @@ def find_jobs_and_tracks(jenkins_url, job_name):
     return [{'track': track, 'job_name': job_name.format(track=track)} for track in find_tracks(jenkins_url)]
 
 
+# Splits time into a more managable formats. Returns a dict
+def format_time(duration):
+
+    time = {}
+    time['seconds_total'] = int(duration/1000)
+    time['minutes'] = int(time['seconds_total']/60)
+    time['seconds'] = time['seconds_total'] - 60*time['minutes']
+    return time
 
 # Restructures the build information to a format suitable for datatables consumption
 def build_to_datatables_format(job):
+
+    # Turn duration into seconds
+    job['duration'] = format_time(job['duration'])
 
     # Default values
     job['claim'] = None

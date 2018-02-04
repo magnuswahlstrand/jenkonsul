@@ -19,20 +19,31 @@
     } );
 
 
-      $
-      ajax_url = "job/cran5g.main.infra.deployment-vm.test"
-      $('#example').DataTable( {
-          "ajax": ajax_url,
-          "sAjaxDataProp": "",
-          "columns": [
-              { "data": "id" },
-              { "data": "duration" },
-              { "data": "result" }
-          ]
-      } );
+      $(".jenkins-monitor").each(function() {
+
+        ajax_url = "job/" + $(this).data('job-name');
+        //ajax_url = "job/cran5g.main.infra.deployment-vm.test"
+        console.log();
+        $(this).DataTable( {
+            "ajax": ajax_url,
+            "sAjaxDataProp": "",
+            "columns": [
+                { "data": "id",
+                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                      $(nTd).html("<a href='"+oData.url+"'>Build #"+sData+"</a>");
+                  } },
+                { "data": "duration",
+                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                      $(nTd).html(sData.minutes + ":" + sData.seconds);
+                  }} ,
+                { "data": "result" }
+            ]
+        } );
+      });
+
+
 
   });
-
 /*
     "building": false,
     "claim": null,
@@ -60,12 +71,13 @@
   <div id="tabs-{{job.track}}">
     <h1>{{job.job_name}}</h1>
 
-      <table id="example" class="display" cellspacing="0" width="100%">
+      <table id="job-table-{{job.job_name}}" class="display jenkins-monitor" cellspacing="0" width="100%" data-job-name="{{job.job_name}}">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Duration</th>
                 <th>Result</th>
+                <th>URL</th>
             </tr>
         </thead>
         </tfoot>

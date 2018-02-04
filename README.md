@@ -12,24 +12,25 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 1. ~Add gitignore~
 3. Create docker file for file
 4. Pass all arguments to docker command
+4. ~Separate file for js-callbacks~
 
 #### 0.5
-3. Add job description
 2. Break out header for table to separate definition
-1. Show git push triggering
-2. git: link to triggering commit
-3. Add job trigger description
-
-#### 0.6
 
 #### 0.x
+5. Add picture of working app
 1. Add config file
 4. Refresh table on change of tab
 3. Add Help page
 3. Add mail feedback mechanism
+
+1. Show git push triggering
+2. git: link to triggering commit
 4. Error handling: no jenkins
 4. Error handling: no tracks
 4. Error handling: no jobs
+3. Add job description
+3. Add job trigger description
 
 ### Done
 

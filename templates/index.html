@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <script src="{{ url_for('static', filename='jenkonsul.js') }}"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -43,25 +44,14 @@
             "sAjaxDataProp": "",
             "columns": [
                 { "data": "id",
-                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                      $(nTd).html("<a href='"+oData.url+"'>Build #"+sData+"</a>");
-                  } },
+                  "fnCreatedCell": jenkonsul.buildNumberLink // Adds a hyperlink named Build#<BUILD NUMBER>
+                },
                 { "data": "duration",
-                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                      $(nTd).html(sData.minutes + ":" + sData.seconds);
-                  }} ,
+                  "fnCreatedCell": jenkonsul.formatTime
+                } ,
                 { "data": "result",
-                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-
-                    // Set the color of cell
-                    if(sData == 'FAILURE')
-                    {
-                      $(nTd).css('backgroundColor', '#ff6666');
-                    }
-                    else {
-                      // Default is no color
-                    }
-                  }},
+                  "fnCreatedCell": jenkonsul.colorize
+                },
 
                 // Only works with the claim plugin
                 { "data": "claim.claimedBy", "defaultContent": ""},
@@ -69,30 +59,20 @@
                 // Only works with the Build Failure Analyzer
                 // https://wiki.jenkins.io/display/JENKINS/Build+Failure+Analyzer
                 { "data": "foundFailureCauses.name", "defaultContent": ""},
+
                 { "data": "url",
-                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                      $(nTd).html("<a href='"+sData+"'>URL</a>");
-                  } },
+                  "fnCreatedCell": jenkonsul.urlLink }, // Adds a hyperlink named URL }
             ]
         } );
       });
 
-  // Start updating active datatable every 10 s
-  setInterval( function () {
-    updateActiveDatatable();
-  }, 10000 );
+    // Start updating active datatable every 10 s
+    setInterval( function () {
+      updateActiveDatatable();
+    }, 10000 );
 
   });
-/*
-    "building": false,
-    "claim": null,
-    "description": null,
-    "duration": 695842,
-    "id": "87",
-    "result": "SUCCESS",
-    "trigger": "Triggered by 1 message:\n    f97eba94-d33c-4bc5-a037-4816c351c935 (EiffelArtifactNewEvent)\n",
-    "url": "http://vran-jenkins-master.rnd.ki.sw.ericsson.se:8080/jenkins/job/cran5g.main.infra.deployment-vm.test/87/"
-*/
+
   </script>
 </head>
 <body>

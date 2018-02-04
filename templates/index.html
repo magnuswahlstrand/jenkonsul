@@ -11,6 +11,20 @@
   <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
+
+
+  function updateActiveDatatable()
+  {
+    console.log('Refreshing table data ');
+    var activeDatatable = $( "div[aria-hidden='false'] .dataTable" );
+
+    //Reload datatables data
+    $(activeDatatable).DataTable().ajax.reload();
+
+    // For troubleshooting :-)
+    //$(activeDatatable).css({ opacity: 0.5 });
+  }
+
   $( function() {
     $( "#tabs" ).tabs({
       beforeActivate: function (event, ui) {
@@ -19,13 +33,13 @@
     } );
 
 
+      // Initialize datatables
       $(".jenkins-monitor").each(function() {
 
         ajax_url = "job/" + $(this).data('job-name');
-        //ajax_url = "job/cran5g.main.infra.deployment-vm.test"
-        console.log();
         $(this).DataTable( {
             "ajax": ajax_url,
+            "aaSorting": [[0,'desc']],
             "sAjaxDataProp": "",
             "columns": [
                 { "data": "id",
@@ -36,12 +50,29 @@
                   "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                       $(nTd).html(sData.minutes + ":" + sData.seconds);
                   }} ,
-                { "data": "result" }
+                { "data": "result",
+                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+
+                    // Set the color of cell
+                    if(sData == 'FAILURE')
+                    {
+                      $(nTd).css('backgroundColor', '#ff6666');
+                    }
+                    else if(sData == 'SUCCESS')
+                    {
+                    }
+                    else {
+                      // Default is no color
+                    }
+                  }}
             ]
         } );
       });
 
-
+  // Start updating active datatable every 10 s
+  setInterval( function () {
+    updateActiveDatatable();
+  }, 10000 );
 
   });
 /*

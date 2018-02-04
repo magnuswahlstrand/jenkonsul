@@ -19,6 +19,7 @@
     } );
 
 
+      $
       ajax_url = "job/cran5g.main.infra.deployment-vm.test"
       $('#example').DataTable( {
           "ajax": ajax_url,
@@ -59,13 +60,7 @@
   <div id="tabs-{{job.track}}">
     <h1>{{job.job_name}}</h1>
 
-
-
-  </div>
-  {% endfor %}
-</div>
-
-  <table id="example" class="display" cellspacing="0" width="100%">
+      <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -75,6 +70,12 @@
         </thead>
         </tfoot>
     </table>
+
+
+  </div>
+  {% endfor %}
+</div>
+
 
 </body>
 </html>

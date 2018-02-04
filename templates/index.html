@@ -58,13 +58,21 @@
                     {
                       $(nTd).css('backgroundColor', '#ff6666');
                     }
-                    else if(sData == 'SUCCESS')
-                    {
-                    }
                     else {
                       // Default is no color
                     }
-                  }}
+                  }},
+
+                // Only works with the claim plugin
+                { "data": "claim.claimedBy", "defaultContent": ""},
+
+                // Only works with the Build Failure Analyzer
+                // https://wiki.jenkins.io/display/JENKINS/Build+Failure+Analyzer
+                { "data": "foundFailureCauses.name", "defaultContent": ""},
+                { "data": "url",
+                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                      $(nTd).html("<a href='"+sData+"'>URL</a>");
+                  } },
             ]
         } );
       });
@@ -108,6 +116,8 @@
                 <th>ID</th>
                 <th>Duration</th>
                 <th>Result</th>
+                <th>Claimed by</th>
+                <th>Reason</th>
                 <th>URL</th>
             </tr>
         </thead>

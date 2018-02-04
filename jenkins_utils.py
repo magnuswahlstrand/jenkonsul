@@ -1,5 +1,6 @@
 import requests
 import json
+from pprint import pprint
 
 # Custom function to find tracks in your CI. Replace with your own
 def find_tracks(jenkins_url):
@@ -34,11 +35,15 @@ def build_to_datatables_format(job):
     if 'actions' in job:
         for action in job['actions']:
             if 'claimed' in action and action['claimed'] == True:
-                print(action)
-                job['claim'] = action['claimedBy'] + ": " + action['reason']
+                job['claim'] = action
 
-            if 'causes' in action:
+            elif 'causes' in action:
                 job['trigger'] = action['causes'][0]['shortDescription']
+
+            elif 'foundFailureCauses' in action and len(action['foundFailureCauses']) > 0:
+                job['foundFailureCauses'] = action['foundFailureCauses'][0]
+                pprint(action)
+
 
         # Remove from dict
         job.pop('actions')
@@ -51,7 +56,7 @@ def all_jobs(url):
     return response.json()
 
 def job_builds(url, job_name):
-    query_url = "{url}/job/{job_name}/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[claimed,claimedBy,reason,causes[shortDescription]]]&pretty=true".format(url=url, job_name=job_name)
+    query_url = "{url}/job/{job_name}/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[assignedBy,claimed,claimedBy,reason,causes[shortDescription],foundFailureCauses[categories,description,id,name]]]&pretty=true".format(url=url, job_name=job_name)
     response = requests.get(query_url)
     data = [build_to_datatables_format(build_data) for build_data in response.json()["allBuilds"] ]
     return data

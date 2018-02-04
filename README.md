@@ -8,15 +8,23 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 ### Upcoming
 
 #### 0.4
-1. Show git push triggering
-2. git: link to triggering commit
 3. Add job description
+3. Add job trigger description
+2. Break out header for table to separate definition
 
 #### 0.5
-3. Include claim information
+1. Show git push triggering
+2. git: link to triggering commit
+
+#### 0.6
+3. Create docker file for file
+4. Pass all arguments to docker command
 
 #### 0.x
-2. Break out header for table to separate definition
+1. Add gitignore
+1. Add config file
+4. Refresh table on change of tab
+3. Include claim information
 3. Add Help page
 3. Add mail feedback mechanism
 

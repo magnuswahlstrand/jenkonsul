@@ -7,6 +7,10 @@ def find_tracks(jenkins_url):
     response = requests.get(jenkins_url + path)
     return [job.split('.')[1] for job in [job['name'] for job in response.json()['jobs'] if job['name'].endswith('deployment-vm.test')]][::-1]
 
+def find_jobs_and_tracks(jenkins_url, job_name):
+    return [{'track': track, 'job_name': job_name.format(track=track)} for track in find_tracks(jenkins_url)]
+
+
 
 # Restructures the build information to a format suitable for datatables consumption
 def build_to_datatables_format(job):
@@ -36,7 +40,7 @@ def all_jobs(url):
     return response.json()
 
 def job_builds(url, job_name):
-    query_url = "{url}/job/{{job_name}}/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[claimed,claimedBy,reason,causes[shortDescription]]]&pretty=true".format(url=url, job_name=job_name)
+    query_url = "{url}/job/{job_name}/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[claimed,claimedBy,reason,causes[shortDescription]]]&pretty=true".format(url=url, job_name=job_name)
     response = requests.get(query_url)
     data = [build_to_datatables_format(build_data) for build_data in response.json()["allBuilds"] ]
     return data

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs({
+      beforeActivate: function (event, ui) {
+          window.location.hash = ui.newPanel.selector;
+      }
+    });
+  } );
+  </script>
+</head>
+<body>
+
+<div id="tabs">
+
+
+  <ul>
+  {% for track in tracks %}
+    <li><a href="#tabs-{{loop.index}}">{{track}}</a></li>
+  {% endfor %}
+  </ul>
+
+  {% for track in tracks %}
+  <div id="tabs-{{loop.index}}">
+    <h1>{{loop.index}}</h1>
+    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+  </div>
+  {% endfor %}
+</div>
+
+
+</body>
+</html>

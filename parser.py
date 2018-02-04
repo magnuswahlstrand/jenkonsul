@@ -1,12 +1,13 @@
 import requests
-from flask import Flask, redirect, render_template, request, json
+import argparse
+
+from flask import Flask, redirect, render_template, request, json, jsonify
 from pprint import pprint
 
-app = Flask(__name__)
-VERSION = 0.1
+import jenkins_utils
 
-url = "http://localhost:8080/job/key-value-adder/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[claimed,claimedBy,reason,causes[shortDescription]]]&pretty=true"
-response = requests.get(url)
+app = Flask(__name__)
+VERSION = 0.2
 
 
 def restructure_response(job):
@@ -31,10 +32,15 @@ def restructure_response(job):
 
     return job
 
+
+@app.route('/tracks')
+def tracks():
+    return jsonify(jenkins_utils.find_tracks(url))
+
+
 @app.route('/')
 def home():
-    return render_template('index.html')
-
+    return render_template('index.html', tracks=jenkins_utils.find_tracks(url))
 
 @app.route('/jenkins_data')
 def jenkins():
@@ -43,5 +49,12 @@ def jenkins():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
 
+    parser = argparse.ArgumentParser('Web app that monitors the status of a job in a Jenkins instance')
+    parser.add_argument('-u', '--url', required=True, help='the url of the Jenkins instance monitor. Example: http://localhost:8080/jenkins/')
+
+    args = parser.parse_args()
+    url = args.url
+    print(url)
+
+    app.run(debug=True)

@@ -55,4 +55,4 @@ if __name__ == '__main__':
         print("\nERROR: --job-name must contain \"{track}\"")
         sys.exit(1)
 
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

@@ -3,7 +3,6 @@ import argparse
 import sys
 
 from flask import Flask, redirect, render_template, request, json, jsonify
-from pprint import pprint
 
 import jenkins_utils
 

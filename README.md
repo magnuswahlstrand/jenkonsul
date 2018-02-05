@@ -3,6 +3,7 @@
 A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 
 
+
 ## Releases
 
 ### Upcoming
@@ -13,6 +14,7 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 3. Create docker file for file
 4. Pass all arguments to docker command
 4. ~Separate file for js-callbacks~
+5. ~Link to claim page~
 
 #### 0.5
 2. Break out header for table to separate definition
@@ -44,3 +46,12 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 1. ~One datatable per table tab~
 4. ~URL to job~
 5. ~Duration in seconds~
+
+## Links
+```
+{{jenkins_url}}/job/{{job_name}}
+{{jenkins_url}}/job/{{job_name}}
+/job/{{job_name}}
+{{jenkins_url}}/job/{{job_name}}/api/json?depth=3&pretty=true
+{{jenkins_url}}/job/{{job_name}}/api/json?tree=allBuilds[id,building,duration,id,result,url,description,actions[assignedBy,claimed,claimedBy,reason,causes[shortDescription],foundFailureCauses[categories,description,id,name]]]&pretty=true
+```

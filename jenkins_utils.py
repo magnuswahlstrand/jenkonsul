@@ -42,8 +42,6 @@ def build_to_datatables_format(job):
 
             elif 'foundFailureCauses' in action and len(action['foundFailureCauses']) > 0:
                 job['foundFailureCauses'] = action['foundFailureCauses'][0]
-                pprint(action)
-
 
         # Remove from dict
         job.pop('actions')

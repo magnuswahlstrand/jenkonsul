@@ -3,21 +3,25 @@
 A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 
 
+## Docker
+
+#### Build
+```bash
+docker build -t jenkonsul .
+```
+
+#### Run
+```bash
+docker run -i -t --rm jenkonsul -p 5050:5000 -u http://localhost:8080/jenkins/ -j "basename.{track}.deployment-test"
+```
 
 ## Releases
 
 ### Upcoming
 
-#### 0.4
-3. ~Include claim information~
-1. ~Add gitignore~
-3. Create docker file for file
-4. Pass all arguments to docker command
-4. ~Separate file for js-callbacks~
-5. ~Link to claim page~
-
 #### 0.5
 2. Break out header for table to separate definition
+2. Add variable for port
 
 #### 0.x
 5. Add picture of working app
@@ -28,16 +32,21 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 
 1. Show git push triggering
 2. git: link to triggering commit
+
+#### 0.errorhandling
 4. Error handling: no jenkins
 4. Error handling: no tracks
 4. Error handling: no jobs
-3. Add job description
-3. Add job trigger description
 
 ### Done
 
-#### ~0.2~
-1. ~First working version. Showing ID, Duration and Result of a jenkins job~
+#### ~0.4~
+3. ~Include claim information~
+1. ~Add gitignore~
+3. ~Create docker file for file~
+4. ~Pass all arguments to docker command~
+4. ~Separate file for js-callbacks~
+5. ~Link to claim page~
 
 #### ~0.3~
 1. ~Colors for row or column based on result~
@@ -46,6 +55,9 @@ A web app that monitors Jenkins jobs. Not using Consul anymore :-).
 1. ~One datatable per table tab~
 4. ~URL to job~
 5. ~Duration in seconds~
+
+#### ~0.2~
+1. ~First working version. Showing ID, Duration and Result of a jenkins job~
 
 ## Links
 ```

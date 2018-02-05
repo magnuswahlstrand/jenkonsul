@@ -103,3 +103,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# A file to hide local commands :-)
+local_commands.txt

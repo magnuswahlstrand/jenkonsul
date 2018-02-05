@@ -7,7 +7,7 @@ from flask import Flask, redirect, render_template, request, json, jsonify
 import jenkins_utils
 
 app = Flask(__name__)
-VERSION = 0.2
+VERSION = 0.4
 
 # Util function to simplify troubleshooting
 @app.route('/tracks')
